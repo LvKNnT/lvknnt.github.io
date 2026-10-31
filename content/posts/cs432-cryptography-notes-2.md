@@ -8,7 +8,7 @@ seriesOrder: 2
 
 # HASH FUNCTIONS
 
-You can access to the course slides [here](https://cryptography101.ca/wp-content/uploads/Chapter-2.pdf) so this is just my own notes
+You can access to the course slides [here](https://cryptography101.ca/wp-content/uploads/Chapter3.pdf) so this is just my own notes
 
 - 3.1 : Fundamental concepts 
 - 3.2 : Relationships between PR, 2PR, CR
