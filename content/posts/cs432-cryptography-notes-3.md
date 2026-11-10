@@ -7,7 +7,7 @@ seriesOrder: 3
 ---
 
 
-# HASH FUNCTIONS
+# MESSAGE AUTHENTICATION CODES
 
 You can access to the course slides [here](https://cryptography101.ca/wp-content/uploads/Chapter4.pdf) so this is just my own notes
 
@@ -29,7 +29,7 @@ You can access to the course slides [here](https://cryptography101.ca/wp-content
 - Ideal MAC schemes are useless in practice
 
 ### Generic attacks on MAC schemes
-- `Guessing the tag` : Obviously is impractical
+- `Guessing the tag` : Obviously is impracticaln
 - `Exhaustive search on the key space` : Also impractical when $l \ge 128$
 
 ### GSM
