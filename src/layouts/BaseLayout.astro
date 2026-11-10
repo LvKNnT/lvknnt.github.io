@@ -1,0 +1,74 @@
+---
+import '../styles/site.css';
+
+interface Props {
+  title: string;
+  description: string;
+  active?: 'home' | 'work' | 'posts';
+}
+
+const { title, description, active } = Astro.props;
+const pageTitle = title === 'Lâm Vĩnh Khang' ? title : `${title} · Lâm Vĩnh Khang`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f7f5f0" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <title>{pageTitle}</title>
+    <script is:inline>
+      try {
+        const theme = localStorage.getItem('theme');
+        document.documentElement.dataset.theme = theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      } catch { document.documentElement.dataset.theme = 'light'; }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="site-frame">
+      <header class="site-header">
+        <a class="brand" href="/" aria-label="Lâm Vĩnh Khang, home">
+          <span class="brand-mark">LVK<span class="brand-dot">.</span></span>
+          <span class="brand-name">Lâm Vĩnh Khang</span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+          <a href="/" aria-current={active === 'home' ? 'page' : undefined}>About</a>
+          <a href="/work/" aria-current={active === 'work' ? 'page' : undefined}>Work</a>
+          <a href="/posts/" aria-current={active === 'posts' ? 'page' : undefined}>Writing</a>
+          <a class="nav-resume" href="/resume.pdf">Résumé <span aria-hidden="true">↗</span></a>
+        </nav>
+        <button class="theme-toggle" type="button" aria-label="Switch to dark theme" title="Toggle theme">
+          <span class="theme-icon" aria-hidden="true">◐</span>
+        </button>
+      </header>
+      <main id="main"><slot /></main>
+      <footer class="site-footer">
+        <span>© {new Date().getFullYear()} Lâm Vĩnh Khang</span>
+        <span class="footer-note">Built for the curious.</span>
+        <a href="mailto:khanglamtat@gmail.com">Say hello <span aria-hidden="true">↗</span></a>
+      </footer>
+    </div>
+    <script>
+      const button = document.querySelector<HTMLButtonElement>('.theme-toggle');
+      const updateLabel = () => {
+        if (button) button.setAttribute('aria-label', `Switch to ${document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'} theme`);
+      };
+      updateLabel();
+      button?.addEventListener('click', () => {
+        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem('theme', next); } catch { /* Storage may be disabled. */ }
+        updateLabel();
+      });
+    </script>
+  </body>
+</html>

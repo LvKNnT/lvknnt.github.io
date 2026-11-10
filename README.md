@@ -1,205 +1,53 @@
-# Personal Site
+# Lâm Vĩnh Khang · Personal site
 
-A simple personal website for my profile, selected work, and technical notes.
-
-**Live site:** [personal-site.khanglamtat.workers.dev](https://personal-site.khanglamtat.workers.dev)
-
-## Features
-
-- Profile, work, and posts routes
-- Responsive light and dark themes
-- Markdown-powered About section and blog posts
-- MathJax support for inline and display LaTeX
-- Automatic post reading time and first-image previews
-- Project images with an accessible zoom view
-- Cloudflare Workers deployment
+Static research portfolio and writing archive at [lvknnt.github.io](https://lvknnt.github.io/).
 
 ## Stack
 
-- [React 19](https://react.dev/)
-- [Vinext](https://github.com/cloudflare/vinext)
-- [Vite](https://vite.dev/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [React Markdown](https://github.com/remarkjs/react-markdown)
-- [MathJax](https://www.mathjax.org/)
-- [Cloudflare Workers](https://workers.cloudflare.com/)
-
-## Routes
-
-| Route | Content |
-| --- | --- |
-| `/` | Profile, About, cover image, timeline, and links |
-| `/work` | Projects, descriptions, links, images, and tags |
-| `/posts` | Blog index with dates, reading times, and previews |
-| `/posts/:slug` | Individual Markdown post |
-
-## Requirements
-
-- Node.js 22.13 or newer
-- npm
+- Astro 7 with static output and content collections
+- Markdown posts with GitHub-flavored Markdown, syntax highlighting, and build-time MathJax SVG
+- GitHub Pages deployment through GitHub Actions
 
 ## Local development
 
+Use Node.js 22.12 or newer and npm:
+
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Vinext watches the source and Markdown files, so saved changes normally appear without restarting the development server.
+Run the production checks with `npm run check` and `npm run build`. Preview the output with `npm run preview`.
 
-To test the production build locally:
+## Editing content
 
-```bash
-npm run build
-npm run start
-```
+- Profile and featured project copy: `src/pages/index.astro`
+- Full project list: `src/data/projects.ts`
+- Posts: `src/content/posts/*.md`
+- Images and downloadable résumé: `public/`
 
-## Editing the site
-
-### Profile
-
-- Edit profile details, social links, and the timeline in `app/page.tsx`.
-- Edit the About section in `content/about.md`.
-- Replace `public/avatar.jpg` to change the avatar and navigation mark.
-- Replace `public/cover.jpg` to change the profile cover.
-- Edit or replace `public/favicon.svg` to change the favicon.
-
-Keep the same filenames to update an image without changing the code. If the browser shows an older image, perform a hard refresh.
-
-### Work
-
-Projects are stored in the `projects` array in `app/work/page.tsx`:
-
-```ts
-{
-  year: '2026',
-  title: 'Project name',
-  type: 'Personal project',
-  description: 'A short explanation of the project.',
-  tags: ['TypeScript', 'React'],
-  href: 'https://github.com/username/project',
-  image: '/work/img/project.png',
-  imageAlt: 'Project screenshot',
-}
-```
-
-Place work images in `public/work/img/`. The `image` and `imageAlt` fields are optional, but linked projects should include `href` when available.
-
-### Posts
-
-Create a Markdown file in `content/posts/`. Its filename becomes the URL slug:
-
-```text
-content/posts/my-new-post.md -> /posts/my-new-post
-```
-
-Use this front matter:
+Every post requires `title` and `date` front matter. `description`, `series`, and `seriesOrder` are optional. Set `hidden: true` to keep a post out of the public index and static routes. Lowercase filenames determine the public URL at `/posts/<filename>/`. The older uppercase `/posts/PRNGs-survey/` URL redirects to its lowercase route.
 
 ```md
 ---
-title: My new post
-date: 2026-09-16
-description: A short description shown on the posts page.
-# readingTime: 5 min
----
-
-Post content goes here.
-```
-
-`readingTime` is optional. When omitted, it is calculated automatically at approximately 200 words per minute.
-
-`date` is also optional. When omitted, the site uses the Markdown file's last Git change date. New or locally modified files use their filesystem modification date until committed. Undated posts changed on the same day are ordered by their full modification time, newest first.
-
-To connect multiple posts as a series, give every chapter the same `series` value and an increasing `seriesOrder`:
-
-```md
----
-title: Lattice Notes — Chapter 1
-date: 2026-09-15
-description: Foundations of SIS and LWE.
-series: Lattice Notes
+title: "Example note"
+date: 2026-11-10
+description: "A brief summary."
+series: "Lattice Notes"
 seriesOrder: 1
 ---
+
+Markdown content goes here. Inline math uses `$...$` and display math uses `$$...$$`.
 ```
 
-Series posts automatically show their chapter position and Previous/Next chapter buttons.
+Post dates are explicit so builds are reproducible. The four previously undated posts use their latest Git commit date from the prior site.
 
-The first Markdown image is used as the post preview image:
+## Deployment
 
-```md
-![Description](/work/img/example.jpg)
-```
+GitHub Pages is configured to use **GitHub Actions** as its source. Every push to `main` builds and deploys the static site. The workflow is in `.github/workflows/deploy.yml`; `astro.config.mjs` sets the root URL to `https://lvknnt.github.io` with no base path.
 
-Assets placed in `public/` are referenced from the site root, so do not include `/public` in the URL.
-
-### Mathematics
-
-Use `$...$` for inline math:
-
-```md
-The error vector is $\mathbf{e} \in \mathbb{Z}_q^n$.
-```
-
-Use `$$...$$` for centered display math:
-
-```md
-$$
-\mathbf{A}\mathbf{e} = \mathbf{b} \pmod q
-$$
-```
-
-Long equations can be split with an aligned environment:
-
-```md
-$$
-\begin{aligned}
-a &\Longrightarrow b \\
-  &\Longrightarrow c
-\end{aligned}
-$$
-```
-
-MathJax is loaded in the browser from jsDelivr, so displaying equations requires an internet connection.
-
-## Available commands
-
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Start the development server |
-| `npm run build` | Create the production Worker build |
-| `npm run start` | Run the built Worker locally with Wrangler |
-| `npm run lint` | Check the source with Oxlint |
-| `npm run format` | Format the source with Oxfmt |
-
-## Deploying to Cloudflare Workers
-
-Authenticate once if Wrangler requests it:
-
-```bash
-npx wrangler login
-```
-
-Build and deploy the current local files:
-
-```bash
-npm run build
-npx wrangler deploy --config ./dist/server/wrangler.json
-```
-
-Wrangler deploys the generated local build, not the contents of the GitHub repository. Run `npm run build` again before every deployment so `dist/` contains the latest changes.
-
-## Repository structure
-
-```text
-app/                  Routes, layout, and global styles
-components/           Shared React components
-content/about.md      About section
-content/posts/        Markdown blog posts
-lib/posts.ts          Post discovery and metadata parsing
-public/               Avatar, cover, favicon, and content images
-vite.config.ts        Vinext, Tailwind, and Cloudflare configuration
-```
+The site has no server-side runtime. To add a feature that requires a backend, host that service separately and call it from the browser.
 
 ## License
 
-This project is licensed under the [GNU Affero General Public License v3.0](LICENSE).
+GNU Affero General Public License v3.0; see [LICENSE](LICENSE).

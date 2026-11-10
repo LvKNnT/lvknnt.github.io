@@ -1,0 +1,14 @@
+---
+// Astro normalizes collection IDs to lowercase. Preserve the original public URL.
+const destination = '/posts/prngs-survey/';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0;url=${destination}`} />
+    <link rel="canonical" href="https://lvknnt.github.io/posts/prngs-survey/" />
+    <title>Redirecting…</title>
+  </head>
+  <body><p>This note moved to <a href={destination}>its current address</a>.</p></body>
+</html>

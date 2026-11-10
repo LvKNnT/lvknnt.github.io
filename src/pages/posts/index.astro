@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatPostDate, getPublicPosts, previewImage, readingTime } from '../../data/posts';
+
+const posts = await getPublicPosts();
+---
+<BaseLayout title="Writing" description="Technical notes and CTF writeups on cryptography, computer science, and research." active="posts">
+  <div class="page-heading"><span class="section-index">NOTES & WRITING</span><h1>Ideas in <em>progress.</em></h1><p>Notes on cryptography, CTF problem solving, research papers, and the craft of making ideas work.</p><span class="post-count">{posts.length} published notes</span></div>
+  <div class="posts-list">
+    {posts.map((post) => {
+      const image = previewImage(post.body || '');
+      return <article class="post-row"><div class="post-row-date"><time datetime={post.data.date.toISOString()}>{formatPostDate(post.data.date, { day: undefined, month: 'short' })}</time><span>{readingTime(post.body || '')}</span></div><a class="post-row-main" href={`/posts/${post.id}/`}><div class="post-row-copy">{post.data.series && <span class="series-tag">{post.data.series}</span>}<h2>{post.data.title}</h2><p>{post.data.description}</p></div>{image && <img src={image.src} alt={image.alt} loading="lazy" />}<span class="post-row-arrow" aria-hidden="true">↗</span></a></article>;
+    })}
+  </div>
+</BaseLayout>

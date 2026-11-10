@@ -1,0 +1,32 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatPostDate, getPublicPosts, readingTime } from '../../data/posts';
+
+type Post = CollectionEntry<'posts'>;
+interface Props { post: Post }
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.hidden);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const allPosts = await getPublicPosts();
+const seriesPosts = post.data.series
+  ? allPosts.filter((item) => item.data.series === post.data.series).sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0))
+  : [];
+const seriesIndex = seriesPosts.findIndex((item) => item.id === post.id);
+const previous = seriesIndex > 0 ? seriesPosts[seriesIndex - 1] : undefined;
+const next = seriesIndex >= 0 ? seriesPosts[seriesIndex + 1] : undefined;
+---
+<BaseLayout title={post.data.title} description={post.data.description || `Read ${post.data.title} by Lâm Vĩnh Khang.`} active="posts">
+  <article class="article-shell">
+    <a class="back-link" href="/posts/"><span aria-hidden="true">←</span> All writing</a>
+    <header class="article-header"><span class="section-index">FIELD NOTES {post.data.series ? `/ ${post.data.series}` : ''}</span><h1>{post.data.title}</h1>{post.data.description && <p class="article-description">{post.data.description}</p>}<div class="article-meta"><time datetime={post.data.date.toISOString()}>{formatPostDate(post.data.date)}</time><span>·</span><span>{readingTime(post.body || '')}</span>{seriesIndex >= 0 && <><span>·</span><span>Chapter {seriesIndex + 1} of {seriesPosts.length}</span></>}</div></header>
+    <div class="article-content markdown-body"><Content /></div>
+    {seriesPosts.length > 0 && <nav class="series-nav" aria-label="Series navigation"><span class="series-nav-label">{post.data.series} · {seriesIndex + 1} / {seriesPosts.length}</span><div>{previous ? <a href={`/posts/${previous.id}/`}>← Previous chapter</a> : <span></span>}{next ? <a href={`/posts/${next.id}/`}>Next chapter →</a> : <span></span>}</div></nav>}
+    <footer class="article-footer"><a href="/posts/">← Back to all writing</a><a href="mailto:khanglamtat@gmail.com">Discuss this note ↗</a></footer>
+  </article>
+</BaseLayout>
