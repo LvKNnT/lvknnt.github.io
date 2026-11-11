@@ -6,7 +6,7 @@ series: "Cryptography Course"
 seriesOrder: 7
 ---
 
-# RSA
+# ELLIPTIC CURVE CRYPTOGRAPHY
 
 You can access to the course slides [here](https://cryptography101.ca/wp-content/uploads/Chapter8.pdf) so this is just my own notes
 
