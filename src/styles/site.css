@@ -46,7 +46,6 @@ img { max-width: 100%; }
 .site-nav { display: flex; align-items: center; gap: clamp(16px, 2.8vw, 36px); margin-left: auto; }
 .site-nav a { color: var(--muted); font-size: .86rem; font-weight: 600; transition: color .2s ease; }
 .site-nav a:hover, .site-nav a[aria-current='page'] { color: var(--accent); }
-.site-nav .nav-resume { color: var(--ink); }
 .theme-toggle { display: grid; place-items: center; width: 38px; height: 38px; flex: 0 0 38px; border: 1px solid var(--rule); border-radius: 50%; background: transparent; color: var(--ink); cursor: pointer; }
 .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
 .theme-icon { font-size: 1.45rem; line-height: 1; }

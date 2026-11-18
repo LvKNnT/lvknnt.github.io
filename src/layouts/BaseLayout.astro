@@ -44,7 +44,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
           <a href="/" aria-current={active === 'home' ? 'page' : undefined}>About</a>
           <a href="/work/" aria-current={active === 'work' ? 'page' : undefined}>Work</a>
           <a href="/posts/" aria-current={active === 'posts' ? 'page' : undefined}>Writing</a>
-          <a class="nav-resume" href="/resume.pdf">Résumé <span aria-hidden="true">↗</span></a>
         </nav>
         <button class="theme-toggle" type="button" aria-label="Switch to dark theme" title="Toggle theme">
           <span class="theme-icon" aria-hidden="true">◐</span>
