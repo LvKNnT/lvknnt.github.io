@@ -83,3 +83,22 @@ I think you have learnt number theory crash course before decided to register th
 
 ## 6.3 ALgorithmic number theory
 I think you have learnt CS crash course before decided to register this course
+
+### Basic concepts from complexity theory
+An `algorithm` is a "well-defined computational precedure" (e.g. a Turing machine) that takes a variable `input` and eventually halts with some `output` :
+- e.g. for an integer factorization algorithm, the input is a positive integer $n$, and the output is its prime factorization 
+
+The `efficiency` of an algorithm is measured by the scarce resources it consumes, e.g. time, space, number of processors, number of chosen plaintext-ciphertext pairs
+
+**Definition** : The `input size` is the number of bits required to write down the input using a reasonable encoding :
+- e.g., the size of a positive integer $n$ is $\lfloor \log_2{n} \rfloor + 1$ bits
+
+*Note* : $k = \log_2{n} \iff n = 2^k$
+
+**Definition** : The `running time` of an algorithm is an upper bound, as a function of the input size, of the worst case number of basic operations the algorithm executes over all inputs of a fixed size
+
+**Definition** : An algorithm is a `polynomial-time` (*efficient*) alforithm if its (expected) running time is $O(k^c)$, where $k$ is the *input size* and $c$ is a fixed positive number
+
+**Definition** : If $f(n)$ and $g(n)$ are functions from the positive integers to the positive real numbers, then $f(n) =O(g(n))$ means that there exists a positive constant $c$ and a positive integer $n_0$ such that $f(n) \le cg(n)$ for all $n \ge n_0$
+
+For example, $7.5n^3 + 1000n^2 - 99 = O(n^3)$

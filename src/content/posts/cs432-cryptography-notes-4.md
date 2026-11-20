@@ -26,9 +26,9 @@ This generic method is `not secure` : the tag $MAC_{k_2}(m)$ might leak some inf
 This generic method has been proven to be `secure`, provided that the encryption scheme $E$ and the MAC scheme employed are secure.
 
 ### Authenticated encryption security
-**Definition** : An authenticated encryption scheme AE is `AE-secure` if : 
-- AE is `semantically secure against chosen plaintext attack`; 
-- AE is `ciphertext integrity` : ad adversary who is able to obtain ciphertext-tag pairs for plaintext messages of her choosing, is unable to produce a valid ciphertext-tag pair 
+**Definition** : An authenticated encryption scheme $AE$ is `AE-secure` if : 
+- $AE$ is `semantically secure against chosen plaintext attack`; 
+- $AE$ is `ciphertext integrity` : an adversary who is able to obtain ciphertext-tag pairs $(c_1, t_1), \dots, (c_\ell, t_\ell)$ for plaintext messages of her choosing, is unable to produce a valid ciphertext-tag pair $(c, t)$ where $c \notin \{c_1, \dots, c_\ell\}$
 
 - **Note** : AE-security implies semantic security against *chosen-ciphertext* attacks
 

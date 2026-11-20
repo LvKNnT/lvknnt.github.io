@@ -79,7 +79,10 @@ In other words, the addition rule satisfies the followinng properties :
 
 ### Point multiplication
 Let $E : Y^2 = X^3 + aX + b$ be an elliptic curve defined over $F = \mathbb{Z}_p$
-Let $n = \#E(\mathbb{Z}_p)$, and suppose that `n is prime`. (Recall that $n \approx p$ by Hasse's Theorem)
+
+Let $n = \#E(\mathbb{Z}_p)$, and suppose that `n is prime`. 
+    
+Recall that $n \approx p$ by Hasse's Theorem
 
 `Definition` : Let $P \in E(\mathbb{Z}_p)$ and let $k \in \mathbb{N}$
 - Then $kP = P + P + \dots + P.$ ($k$ times)

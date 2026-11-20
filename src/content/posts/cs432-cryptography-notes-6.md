@@ -33,6 +33,28 @@ Each entity $A$ does the following :
 You should read the slides duh
 
 ## 7.3 Integer factorization
+### Big-O and little-o notation
+Let $f(n)$ and $g(n)$ be functions from the positive integers to the positive real numbers
+
+`Big-O notation` : We write $f(n) = O(g(n))$ if there exists a positive constant $c$ and a positive integer $n_0$ such that $f(n) \le cg(n)$ for all $n \ge n_0$
+
+**Example** : $3 n ^3 + 4n^2 + 79 = O(n^3)$
+
+`Little-o notation` : We write $f(n) = o(g(n))$ if $\displaystyle \lim_{n \to \infty} \frac{f(n)}{g(n)} = 0$
+
+**Example** : $\frac{1}{n} = o(1)$
+
+### Measures of running time
+`Polynomial-time algorithm` : One whose worst-case running time is of the form $O(n^c)$, where $n$ is the *input size* and $c$ is a constant
+
+`Exponential-time algorithm` : One whose worst-case running time is not of the form $O(n^c)$ for any constant $c$
+
+In this course, `fully exponential-time` functions are of the form $2 ^ {cn}$, where $c$ is a constant, example : $O(2 ^ {n/2})$
+
+`Subexponential-time algorithm` : One whose worst-case running time function is of the form $2 ^ {o(n)}$, and not of the form $O(n^c)$ for any constant $c$; example : $O(2 ^  {\sqrt{n}})$
+
+Roughly speaking, "polynomial time = *efficient*", "fully exponential-time = *terribily inefficient*" and "subexponential-time = *inefficient, but not terribly so*"
+
 ### Special-purpose factoring algorithms
 **Example** : Trial division, Pollard's $p-1$ algorithm, Pollard's $p$ algorithm, elliptic curve factoring method, special number field sieve
 
@@ -87,6 +109,14 @@ Suppose that the adversary $E$ has a target ciphertext $c$ that was encrypted fo
 `Countermeasure` : Add some prescribed formatting to $m$ prior to encryption. After decryptiing the ciphertext $c$, if the plaintext is not properly formatted, then $A$ rejects $c$ (and so the decryption oracle does not return a plaintext).
 
 `Summary` : RSA encryption should incorporate `salting` and `formatting`
+
+### Security definition 
+**Definition** : A public-key encryption scheme is `secure` if it is semantically secure against chosen-ciphertext attack by a computationally bounded adversary
+
+To `break` a public-key encryption scheme, the adversary $E$ has to accomplish the following : 
+- $E$ is given the `public key` and a `challenge ciphertext` $c$
+- $E$ has a `decryption oracle`, to which she can present any ciphertexts for decryption *except for $c$ itself*
+- After a feasible amount of computation, $E$ shold learn *something* about the plaintext $m$ that corresponds to $c$ (other than its length)
 
 ### RSA Optimal Asymmetric Encryption Padding (OAEP)
 You should read the slides
@@ -158,6 +188,7 @@ encapsulation key $(n,e)$.
 Note : The adversary has access to a signing oracle. Her goal is to compute a single valid message0signature pair for any message (of the adverary's choosing) that was not previously given to the signing oracle
 
 **Question** : Is the basic RSA signature scheme secure ?
+
 **Answer** : 
 - `No` : $H$ is SHA-256 (details omitted)
 - `Yes` : $H$ is "full domain"

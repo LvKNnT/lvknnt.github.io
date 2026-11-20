@@ -54,7 +54,7 @@ You can access to the course slides [here](https://cryptography101.ca/wp-content
 - 128 bit is infeasible
 
 ### Security level 
-**Definition** : A cryptographic scheme is said to have security level of l bit if the fastest known attack on the scheme takes approximately l bit operations
+**Definition** : A cryptographic scheme is said to have a `security level` of $\ell$ bit if the fastest known attack on the scheme takes approximately $ 2 ^ \ell$ operations
 
 ## 2.2 Stream ciphers
 **Basic idea** : Instead of using a random key in the one-time pad, use a *pseudorandom* key

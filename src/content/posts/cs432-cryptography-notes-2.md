@@ -31,7 +31,7 @@ A `hash function` is a mapping $H$ such that :
     - More generally, a hash function is an efficiently computable function from a set $S$ to a set $T$
 
 ### Preimage resistance (PR)
-**Definition** : A hash function $H : \{0, 1\} ^ * \rightarrow \{0, 1\} ^ n$ is `preimage resistant` if, given a hash value $y \in_R \{0, 1\} ^ n$, it is computationally infeasible to find (with non-negligible success probability) $any x \in \{0 , 1\} ^ x$ with $H(x) = y$. ($x$ is called a `preimage` of $y$)
+**Definition** : A hash function $H : \{0, 1\} ^ * \rightarrow \{0, 1\} ^ n$ is `preimage resistant` if, given a hash value $y \in_R \{0, 1\} ^ n$, it is computationally infeasible to find (with non-negligible success probability) $any \ x \in \{0 , 1\} ^ x$ with $H(x) = y$. ($x$ is called a `preimage` of $y$)
 
 `Password protection` on a multi-user computer system :
 - The server stores [userid, $H(password)$] in a password file
@@ -39,7 +39,7 @@ A `hash function` is a mapping $H$ such that :
 - This application requires preimage resistance.
 
 ### 2nd preimage resistance (2PR)
-**Definition** : A hash function $H : \{0, 1\} ^ * \rightarrow \{0, 1\} ^ n$ is a `2nd preimage resistant` if, given $x \in_R \{0, 1\} ^ *$, it is computationally infeasible to find (with non-negligible success probability) $any x' \in \{0, 1\} ^ x$ with $x' \neq x$ and $H(x') = H(x)$
+**Definition** : A hash function $H : \{0, 1\} ^ * \rightarrow \{0, 1\} ^ n$ is a `2nd preimage resistant` if, given $x \in_R \{0, 1\} ^ *$, it is computationally infeasible to find (with non-negligible success probability) $any \ x' \in \{0, 1\} ^ x$ with $x' \neq x$ and $H(x') = H(x)$
 
 `Modification Detection Codes (MDCs)` :
 - To ensure that a message $m$ is not modified by unauthorized means, one computes $H(m)$ and protects $H(m)$ from unauthorized modification.
