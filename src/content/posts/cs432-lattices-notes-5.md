@@ -70,3 +70,4 @@ Decapsulation decrypts to $m'$, derives the same coins, and re-encrypts. If the 
 ## Solution
 
 There are $256(kd_u+d_v)$ transmitted bits, so the byte count is $256(kd_u+d_v)/8=32(kd_u+d_v)$. The three cases give $32(24)=768$, $32(34)=1088$, and $32(49)=1568$ bytes, respectively.
+
